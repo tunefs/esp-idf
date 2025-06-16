@@ -7200,13 +7200,17 @@ static void prvResetNextTaskUnblockTime( void )
                                         const char * pcTaskName )
     {
         size_t x;
+        size_t xNameLength;
 
         /* Start by copying the entire string. */
         ( void ) strcpy( pcBuffer, pcTaskName );
 
+        /* Calculate string length once to avoid repeated calls in loop. */
+        xNameLength = strlen( pcBuffer );
+
         /* Pad the end of the string with spaces to ensure columns line up when
          * printed out. */
-        for( x = strlen( pcBuffer ); x < ( size_t ) ( ( size_t ) configMAX_TASK_NAME_LEN - 1U ); x++ )
+        for( x = xNameLength; x < ( size_t ) ( ( size_t ) configMAX_TASK_NAME_LEN - 1U ); x++ )
         {
             pcBuffer[ x ] = ' ';
         }
